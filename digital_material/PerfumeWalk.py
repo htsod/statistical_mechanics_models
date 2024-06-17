@@ -51,7 +51,7 @@ class PerfumeWalk(DM.MDSystem):
         if atoms is None:
             atoms = DM.RandomNonoverlappingListOfAtoms(L, neighborLocator, 
                                                        minDist=1.0, nAtoms=nAtoms,
-                                                       temperature = T) 
+                                                       temperature = T)
         # Remove center-of-mass momentum from gas
         atoms.velocities -= DM.np.sum(atoms.velocities)/len(atoms.velocities)
         self.displayObserver = DM.VisualDisplayAtomsObserver(atoms, L)

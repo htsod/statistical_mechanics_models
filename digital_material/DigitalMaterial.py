@@ -634,10 +634,12 @@ class VisualDisplayAtomsObserver(AtomsObserver):
 			for n, pos in enumerate(atoms.positions):
 				if dim==2:
 					self.ball_list[n].pos=vi.vector(pos[0], pos[1], 0.0)
-					self.ball_list[n].color=tuple(svel[n])+(0.,)
+					self.ball_list[n].color=vi.vector(svel[n][0], svel[n][1])
+
 				if dim==3:
 					self.ball_list[n].pos=vi.vector(pos[0], pos[1], pos[2])
-					self.ball_list[n].color=tuple(svel[n])
+					self.ball_list[n].color=vi.vector(svel[n][0], svel[n][1], svel[n][2])
+					
 		else:
 			for n, pos in enumerate(atoms.positions):
 				if dim==2:
