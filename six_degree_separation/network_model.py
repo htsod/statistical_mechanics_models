@@ -7,10 +7,11 @@ class  network:
         """
         Network object with L nodes Z edges with a periodic boundary condition
         """
-        self.nodes = [i for i in range(L)]
         self.L = L
         self.Z = Z
         self.p = p
+        # the network stores its nodes as array and its edges as 2d array align in a corresponding sequence with the nodes
+        self.nodes = [i for i in range(L)]
         edges = [[] for i in range(L)]
 
         for i in range(L):
@@ -167,7 +168,7 @@ class  network:
 
     def FindPathLengthsFromNode(self, node):
         """
-        Find the path length to every another node from the given node
+        Find the path length to every other node from the given node
         """
         currentShell = [node]
         distance = 1

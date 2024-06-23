@@ -27,10 +27,10 @@ for i in range(1, len(p)):
 
 
 
-with open('variation_p.csv', 'w', newline='') as csvfile:
-    spamwriter = csv.writer(csvfile, delimiter=' ',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    spamwriter.writerow(mean_path_list)
+# with open('variation_p.csv', 'w', newline='') as csvfile:
+#     spamwriter = csv.writer(csvfile, delimiter=' ',
+#                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
+#     spamwriter.writerow(mean_path_list)
 
 
 fig, ax = plt.subplots()

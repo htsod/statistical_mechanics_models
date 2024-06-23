@@ -1,14 +1,11 @@
 import network_model
 import matplotlib.pyplot as plt
 
-L = 1000
+L = 500
 Z = 2
-p = 0.1
+p = 0.2
 net = network_model.network(L, Z, p)
 net.RandomAdd()
-
-
-
 net.Display()
 
 dist_list = net.FindAllPathLengths()
