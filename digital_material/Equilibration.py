@@ -17,7 +17,7 @@
 ################################
 
 import DigitalMaterial as DM
-import imp
+import importlib as imp
 imp.reload(DM)
 
 ################################

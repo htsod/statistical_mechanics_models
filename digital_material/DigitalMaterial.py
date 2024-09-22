@@ -17,15 +17,16 @@
 # Import the library(s)
 #########################################
 # Windows
-#import pylab
-#pylab.plot([1,2],[3,4])
-#pylab.show()
-#import visual as vi
-#import scipy
+# import matplotlib.pyplot as plt
+# import matplotlib
+# matplotlib.use("QTAgg")
+# plt.plot([1,2],[3,4])
+# plt.show()
+
 
 # Linux
 import vpython as vi
-# kludge required to get visual window up and running before import scipy
+# kludge required to get visual window up and running before import np
 c = vi.cone(radius=1.0e-10)
 c.visible = 1
 
@@ -39,10 +40,8 @@ c.visible = 1
 
 
 
-import scipy
 import numpy as np
-import pylab
-RandomArray=scipy.random
+RandomArray=np.random
 #import psyco
 #psyco.full()
 
@@ -68,7 +67,7 @@ class ListOfAtoms:
 		"""
 		Sums m v^2 / 2:
 		"""
-		#return 0.5*sum(scipy.sum(self.mass*self.velocities*self.velocities))
+		#return 0.5*sum(np.sum(self.mass*self.velocities*self.velocities))
 		return 0.5*np.sum(self.mass*self.velocities*self.velocities)
 
 
@@ -84,7 +83,7 @@ def RandomListOfAtoms(L, nAtoms=1000, temperature=1.0,
     Put atoms of radius r in box (0,L)^dim
     """
     positions = RandomArray.uniform(radius, L-radius, (nAtoms,dim))
-    velocities = scipy.zeros((nAtoms,dim))
+    velocities = np.zeros((nAtoms,dim))
     atoms = ListOfAtoms(mass, radius, color, positions, velocities)
     ThermalizingTransformer(atoms, temperature)
     return atoms
@@ -98,7 +97,7 @@ def RandomNonoverlappingListOfAtoms(L, neighborLocator, minDist=1.0,
 	overlaps less than minDist.
 	"""
 	pos = RandomArray.uniform(radius, L-radius, (nAtoms,dim))
-	vel = scipy.zeros((nAtoms,dim))
+	vel = np.zeros((nAtoms,dim))
 	atoms = ListOfAtoms(mass, radius, color, pos, vel)
 	# Enforce no overlaps
 	# neighborLocator.HalfNeighbors returns (n1, n2, r, dr) 
@@ -116,7 +115,7 @@ def RandomNonoverlappingListOfAtoms(L, neighborLocator, minDist=1.0,
 		nOverlap = nAtoms - len(posNew)
 		newAtomPositions = RandomArray.uniform(radius, L-radius, (nOverlap,dim))
 		posNew.extend(newAtomPositions)
-		atoms.positions=scipy.array(posNew)
+		atoms.positions=np.array(posNew)
 		overlappingAtoms = neighborLocator.HalfNeighbors(atoms, minDist)[0]
 		nPairOverlap = len(overlappingAtoms)
 	ThermalizingTransformer(atoms, temperature)
@@ -128,21 +127,21 @@ def SquareListOfAtoms(L, nAtoms=25, temperature=1.0,
 	"""
 	Atoms in a square lattice
 	"""
-	positions = scipy.zeros((nAtoms,dim), float)
-	velocities = scipy.zeros((nAtoms,dim), float)
-	GridSize = int(scipy.ceil(float(nAtoms)**(1.0/dim)))
+	positions = np.zeros((nAtoms,dim), float)
+	velocities = np.zeros((nAtoms,dim), float)
+	GridSize = int(np.ceil(float(nAtoms)**(1.0/dim)))
 	atno = 0
 	corner = L/2.0 - GridSize*radius + radius
 	# Avoid atom at boundary of box
 	if dim==2:
-		zeroPosition = scipy.array([corner, corner])
+		zeroPosition = np.array([corner, corner])
 	if dim==3:
-		zeroPosition = scipy.array([corner, corner, corner])
+		zeroPosition = np.array([corner, corner, corner])
 
 	for i in range(GridSize):
 		for j in range(GridSize):
 			if (atno<nAtoms):
-				positions[atno] = scipy.array([i,j])*2.*radius+zeroPosition
+				positions[atno] = np.array([i,j])*2.*radius+zeroPosition
 				atno+=1
 	atoms = ListOfAtoms(mass, radius, color, positions, velocities)
 	ThermalizingTransformer(atoms, temperature)
@@ -165,21 +164,21 @@ def ClusterListOfAtoms(inside, R, latticeVectors, origin=None, temperature=1.0,
     lattice vectors.
     """
 	if R<0:
-		positions = scipy.array([])
-		velocities = scipy.array([])
+		positions = np.array([])
+		velocities = np.array([])
 		return
 	if maxIndex==None:
-		rMin = scipy.sqrt(min( \
-	    	[scipy.dot(latticeVectors[i], latticeVectors[i]) for i in range(dim)]))
+		rMin = np.sqrt(min( \
+	    	[np.dot(latticeVectors[i], latticeVectors[i]) for i in range(dim)]))
 	maxIndex = int(3*R/rMin)
-	if center == None:
-		center = scipy.zeros(dim, float)
-	if origin == None:
-		origin = scipy.zeros(dim, float)
+	if type(center) == None:
+		center = np.zeros(dim, float)
+	if type(origin) == None:
+		origin = np.zeros(dim, float)
 	
-	m = scipy.zeros(dim)
+	m = np.zeros(dim)
 	atomList = []
-	mCenter = [int(scipy.dot(center-origin, latticeVectors[i])) for i in range(dim)]
+	mCenter = [int(np.dot(center-origin, latticeVectors[i])) for i in range(dim)]
 
 	for m[0] in range(mCenter[0]-maxIndex, mCenter[0]+maxIndex):
 		for m[1] in range(mCenter[1]-maxIndex, mCenter[1]+maxIndex):
@@ -193,8 +192,8 @@ def ClusterListOfAtoms(inside, R, latticeVectors, origin=None, temperature=1.0,
 					if inside(pos-center, R):
 						atomList.append(pos)
 
-	positions = scipy.array(atomList)
-	velocities = scipy.zeros(scipy.shape(atomList), float)
+	positions = np.array(atomList)
+	velocities = np.zeros(np.shape(atomList), float)
 	atoms = ListOfAtoms(mass, radius, color, positions, velocities)
 	ThermalizingTransformer(atoms, temperature)
 	return atoms
@@ -209,7 +208,7 @@ def SphericalClusterListOfAtoms(R, latticeVectors, origin=None,
     """
     #
     def inside(dr, R):
-        return scipy.dot(dr, dr) < R*R
+        return np.dot(dr, dr) < R*R
     #
     return ClusterListOfAtoms(inside, R, latticeVectors, origin,
     			temperature, center, maxIndex, mass, radius, color)
@@ -238,7 +237,7 @@ def CubicalClusterListOfAtoms(L, latticeVectors, origin=None,
 				Inside = False
 		return Inside
     #
-	center = L/2.*scipy.ones(dim, float)
+	center = L/2.*np.ones(dim, float)
 	return ClusterListOfAtoms(inside, L, latticeVectors, origin,
     			temperature, center, maxIndex, mass, radius, color)
 
@@ -258,35 +257,35 @@ def SphericalClusterListOfAtoms_1(R, latticeVectors, origin=None,
     lattice vectors.
     """
 	if R<0:
-		positions = scipy.array([])
-		velocities = scipy.array([])
+		positions = np.array([])
+		velocities = np.array([])
 		return
 	if maxIndex==None:
-		rMin = scipy.sqrt(min([scipy.dot(latticeVectors[i], latticeVectors[i]) for i in range(dim)]))
+		rMin = np.sqrt(min([np.dot(latticeVectors[i], latticeVectors[i]) for i in range(dim)]))
 		maxIndex = int(3*R/rMin)
-	if center == None:
-		center = scipy.zeros(dim, float)
-	if origin == None:
-		origin = scipy.zeros(dim, float)
+	if type(center) == None:
+		center = np.zeros(dim, float)
+	if type(origin) == None:
+		origin = np.zeros(dim, float)
 
-	m = scipy.zeros(dim)
+	m = np.zeros(dim)
 	atomList = []
-	mCenter = [int(scipy.dot(center-origin, latticeVectors[i]))
+	mCenter = [int(np.dot(center-origin, latticeVectors[i]))
 		for i in range(dim)]
 	
 	for m[0] in range(mCenter[0]-maxIndex, mCenter[0]+maxIndex):
 		for m[1] in range(mCenter[1]-maxIndex, mCenter[1]+maxIndex):
 			if (dim==2):
 				pos = m[0]*latticeVectors[0]+m[1]*latticeVectors[1]
-				if scipy.dot(pos-center, pos-center) < R*R:
+				if np.dot(pos-center, pos-center) < R*R:
 					atomList.append(pos)
 			if (dim==3):
 				for m[2] in range(mCenter[2]-maxIndex, mCenter[2]+maxIndex):
 					pos = m[0]*latticeVectors[0]+m[1]*latticeVectors[1]+m[2]*latticeVectors[2]
-					if scipy.dot(pos-center, pos-center) < R*R:
+					if np.dot(pos-center, pos-center) < R*R:
 						atomList.append(pos)
-	positions = scipy.array(atomList)
-	velocities = scipy.zeros(scipy.shape(atomList), float)
+	positions = np.array(atomList)
+	velocities = np.zeros(np.shape(atomList), float)
 	atoms = ListOfAtoms(mass, radius, color, positions, velocities)
 	ThermalizingTransformer(atoms, temperature)
 	return atoms
@@ -301,7 +300,7 @@ def TriangularSphericalClusterListOfAtoms(R, latticeSpacing=None,
     """
 	if latticeSpacing is None:
 		latticeSpacing=2.*radius
-		latticeVectors = latticeSpacing * scipy.array([[1.,0.] , [0.5, 0.5*scipy.sqrt(3.)]])
+		latticeVectors = latticeSpacing * np.array([[1.,0.] , [0.5, 0.5*np.sqrt(3.)]])
 	atoms = SphericalClusterListOfAtoms(R, latticeVectors, \
 	origin, temperature, center, maxIndex, mass, radius, color)
 	return atoms
@@ -315,8 +314,8 @@ def FCCSphericalClusterListOfAtoms(R, latticeSpacing=None,
     """
 	if latticeSpacing is None:
 		latticeSpacing=2.*radius
-	a = latticeSpacing/scipy.sqrt(2.)
-	latticeVectors = scipy.array([[a,a,0.] , [a,0.,a], [0.,a,a]])
+	a = latticeSpacing/np.sqrt(2.)
+	latticeVectors = np.array([[a,a,0.] , [a,0.,a], [0.,a,a]])
 	atoms = SphericalClusterListOfAtoms(R, latticeVectors, origin, temperature, center, maxIndex, mass, radius, color)
 	return atoms
 	
@@ -330,8 +329,8 @@ def TriangularSquareClusterListOfAtoms(L, latticeSpacing=None,
     """
 	if latticeSpacing is None:
 		latticeSpacing=2.*radius
-	a = latticeSpacing/scipy.sqrt(2.)
-	latticeVectors = latticeSpacing * scipy.array([[1.,0.] , [0.5, 0.5*scipy.sqrt(3.)]])
+	a = latticeSpacing/np.sqrt(2.)
+	latticeVectors = latticeSpacing * np.array([[1.,0.] , [0.5, 0.5*np.sqrt(3.)]])
 	atoms = CubicalClusterListOfAtoms(L, latticeVectors, origin, temperature, maxIndex, mass, radius, color)
 	return atoms
 
@@ -345,8 +344,8 @@ def FCCCubicalClusterListOfAtoms(L, latticeSpacing=None,
     """
 	if latticeSpacing is None:
 		latticeSpacing=2.*radius
-	a = latticeSpacing/scipy.sqrt(2.)
-	latticeVectors = scipy.array([[a,a,0.] , [a,0.,a], [0.,a,a]])
+	a = latticeSpacing/np.sqrt(2.)
+	latticeVectors = np.array([[a,a,0.] , [a,0.,a], [0.,a,a]])
 	atoms = CubicalClusterListOfAtoms(L, latticeVectors, origin, temperature, maxIndex, mass, radius, color)
 	return atoms
 	
@@ -360,8 +359,8 @@ def ThermalizingTransformer(atoms, T):
     Thermalizes velocities to m v^2 / 2 = kB T/2, with kB = 1
     """
     # 
-    vRMS = scipy.sqrt(T/atoms.mass)
-    atoms.velocities = RandomArray.normal(0, vRMS, scipy.shape(atoms.velocities))
+    vRMS = np.sqrt(T/atoms.mass)
+    atoms.velocities = RandomArray.normal(0, vRMS, np.shape(atoms.velocities))
   
 
 		
@@ -398,7 +397,7 @@ class VelocityTrajectoryObserver:
 
 
 	def vXvY(self, atomIndex=0):
-		trajNum = scipy.array(self.vTrajectory)
+		trajNum = np.array(self.vTrajectory)
 		return trajNum[:,atomIndex,0], trajNum[:,atomIndex,1]
 
 
@@ -431,14 +430,14 @@ class UnfoldedTrajectoryObserver:
 
 
 	def XY(self, atomIndex=0):
-		trajNum = scipy.array(self.trajectory)
+		trajNum = np.array(self.trajectory)
 		return trajNum[:,atomIndex,0], trajNum[:,atomIndex,1]
 	
 
 	def r2Bar(self):
         # XXX Needs to be divided by nAtoms
 	# I think nAtoms = self.trajectory.shape()[1]?
-		trajDiff = scipy.array(self.trajectory) - self.trajectory[0]
+		trajDiff = np.array(self.trajectory) - self.trajectory[0]
 		return np.sum(np.sum(trajDiff*trajDiff,1),1)
 	
 
@@ -482,7 +481,7 @@ class EnergyObserver(AtomsObserver):
 		self.KEs.append(KE)
 		self.PEs.append(PE)
 		self.Es.append(E)
-		nAtoms, dimension = scipy.shape(atoms.positions)
+		nAtoms, dimension = np.shape(atoms.positions)
 		if self.nAtoms is not None:
 			assert(self.nAtoms == nAtoms)
 			assert(self.dimension == dimension)
@@ -504,9 +503,9 @@ class EnergyObserver(AtomsObserver):
 		"""
 		assert len(vec)>1
 		mean = self.Mean(vec)
-		diff = scipy.array(vec)-mean
+		diff = np.array(vec)-mean
 		# Divide by N-1: corrects for imperfections in mean (N=1 has vec-mean=0)
-		return scipy.sqrt(sum(diff*diff)/(len(vec)-1.0))
+		return np.sqrt(sum(diff*diff)/(len(vec)-1.0))
 	
 
 	def SigmaMean(self, vec):
@@ -515,7 +514,7 @@ class EnergyObserver(AtomsObserver):
 		(Equals RMS fluctuations divided by sqrt(N))
 		"""
 		assert len(vec)>1
-		return self.Sigma(vec)/scipy.sqrt(len(vec))
+		return self.Sigma(vec)/np.sqrt(len(vec))
 	
 
 	def DOF(self, nUncoupledDOF=0):
@@ -629,8 +628,8 @@ class VisualDisplayAtomsObserver(AtomsObserver):
 	def Update(self, atoms, times=None):
 		if self.velocityColors:
 			vel = atoms.velocities
-			vxrms = scipy.sqrt(np.sum(vel[:,0]*vel[:,0])/len(vel))
-			svel = scipy.clip(scipy.fabs(vel)/vxrms, 0., 1.)
+			vxrms = np.sqrt(np.sum(vel[:,0]*vel[:,0])/len(vel))
+			svel = np.clip(np.fabs(vel)/vxrms, 0., 1.)
 			for n, pos in enumerate(atoms.positions):
 				if dim==2:
 					self.ball_list[n].pos=vi.vector(pos[0], pos[1], 0.0)
@@ -675,7 +674,7 @@ class NoNeighborLocator(NeighborLocator):
 		"""
 		Returns empty lists for n1, n2, dr and r^2
 		"""
-		return [], [], scipy.array([]), scipy.array([])
+		return [], [], np.array([]), np.array([])
 
 
 class SimpleNeighborLocator(NeighborLocator):
@@ -710,9 +709,9 @@ class SimpleNeighborLocator(NeighborLocator):
 			for m, drsq in enumerate(dr1sq) if drsq < distSquared])
 			r2.extend([drsq
 			for m, drsq in enumerate(dr1sq) if drsq < distSquared])
-		# Conversion to scipy.array takes half the time (for dist->infty)!
-		dr = scipy.array(dr)
-		r2 = scipy.array(r2)
+		# Conversion to np.array takes half the time (for dist->infty)!
+		dr = np.array(dr)
+		r2 = np.array(r2)
 		return n1, n2, dr, r2
 
 
@@ -741,13 +740,13 @@ class SimpleNeighborLocator_2 (NeighborLocator):
 			dr1 = self.boundaryConditions.DifferenceBoundaryConditions(dr1)
 			dr1sq = np.sum(dr1*dr1,1)
 			smaller = dr1sq < distSquared
-			n1.extend(n*scipy.ones(scipy.sum(smaller)))
-			n2.extend(scipy.compress(smaller, scipy.arange(len(dr1sq))))
-			r2.extend(scipy.compress(smaller, dr1sq))
-			dr.extend(scipy.compress(smaller, dr1,0))
-		# Conversion to scipy.array takes half the time (for dist->infty)!
-		dr = scipy.array(dr)
-		r2 = scipy.array(r2)
+			n1.extend(n*np.ones(np.sum(smaller)))
+			n2.extend(np.compress(smaller, np.arange(len(dr1sq))))
+			r2.extend(np.compress(smaller, dr1sq))
+			dr.extend(np.compress(smaller, dr1,0))
+		# Conversion to np.array takes half the time (for dist->infty)!
+		dr = np.array(dr)
+		r2 = np.array(r2)
 		return n1, n2, dr, r2
 
 
@@ -765,8 +764,8 @@ class SimpleNeighborLocator_3 (NeighborLocator):
 		"""
 		n1 = []
 		n2 = []
-		dr = scipy.zeros((0,2), 'l')
-		r2 = scipy.array([])
+		dr = np.zeros((0,2), 'l')
+		r2 = np.array([])
 		if (dist!=None):
 			distSquared=dist*dist
 		else:
@@ -779,18 +778,18 @@ class SimpleNeighborLocator_3 (NeighborLocator):
 			for m, drsq in enumerate(dr1sq) if drsq < distSquared])
 			n2.extend([m
 			for m, drsq in enumerate(dr1sq) if drsq < distSquared])
-			x = scipy.array([dr1[m] \
+			x = np.array([dr1[m] \
 					for m, drsq in \
 					enumerate(dr1sq) \
 					if drsq < distSquared])
 			if len(x) > 0:
-				dr = scipy.concatenate((dr, x))
-			r2 = scipy.concatenate((r2, \
+				dr = np.concatenate((dr, x))
+			r2 = np.concatenate((r2, \
 						[drsq for m, drsq in enumerate(dr1sq) \
 						if drsq < distSquared]))
-		# Conversion to scipy.array takes half the time (for dist->infty)!
-		dr = scipy.array(dr)
-		r2 = scipy.array(r2)
+		# Conversion to np.array takes half the time (for dist->infty)!
+		dr = np.array(dr)
+		r2 = np.array(r2)
 		return n1, n2, dr, r2
 
 
@@ -908,10 +907,10 @@ class PeriodicBoundaryConditions (BoundaryConditions):
 		"""
 		# Avoid negative fmod 
 		if dim==2:
-			shift = scipy.array([self.L, self.L]) 
+			shift = np.array([self.L, self.L]) 
 		if dim==3:
-			shift = scipy.array([self.L, self.L, self.L]) 
-		atoms.positions = scipy.fmod(atoms.positions+100*shift, self.L)
+			shift = np.array([self.L, self.L, self.L]) 
+		atoms.positions = np.fmod(atoms.positions+100*shift, self.L)
     #
 		
 	
@@ -923,11 +922,11 @@ class PeriodicBoundaryConditions (BoundaryConditions):
 		Assumes atoms separated by less than 100*L
 		"""
 		if dim==2:
-			shift = 0.5*scipy.array([self.L, self.L]) 
+			shift = 0.5*np.array([self.L, self.L]) 
 		if dim==3:
-			shift = 0.5*scipy.array([self.L, self.L, self.L]) 
+			shift = 0.5*np.array([self.L, self.L, self.L]) 
 		drNew = dr + 201.*shift
-		drNew = scipy.fmod(drNew, self.L)
+		drNew = np.fmod(drNew, self.L)
 		drNew -= shift
 		return drNew
 
@@ -954,15 +953,15 @@ class Potential:
 		to make sure shape matches that of atoms.
 		"""
 		if forcesSoFar is None:
-			forces = scipy.zeros(scipy.shape(atoms.positions),float)
+			forces = np.zeros(np.shape(atoms.positions),float)
 		else:
-			if scipy.shape(forcesSoFar)!=scipy.shape(atoms.positions):
-				print("forcesSoFar shape is ", scipy.shape(forcesSoFar))
+			if np.shape(forcesSoFar)!=np.shape(atoms.positions):
+				print("forcesSoFar shape is ", np.shape(forcesSoFar))
 				print("atoms.positions shape is ", \
-						scipy.shape(atoms.positions))
+						np.shape(atoms.positions))
 				print("forcesSoFar = ", forcesSoFar)
 				print("atoms.positions =  ", atoms.positions)
-			assert scipy.shape(forcesSoFar)==scipy.shape(atoms.positions), \
+			assert np.shape(forcesSoFar)==np.shape(atoms.positions), \
 			"Wrong shape: forcesSoFar in Potential class"
 			forces = forcesSoFar
 		return forces
@@ -1030,7 +1029,7 @@ class GravityPotential(Potential):
 		(allocated if necessary by Potential base class)
 		"""
 		forces = Potential.Forces(self, atoms, neighborLocator, forcesSoFar)
-		gravityAcceleration = scipy.zeros(dim)
+		gravityAcceleration = np.zeros(dim)
 		gravityAcceleration[self.direction]= -self.g
 		forces = forces + atoms.mass * gravityAcceleration
 		return forces
@@ -1071,7 +1070,7 @@ class GravityPotential(Potential):
 #	    for n2, x2 in enumerate(atoms.positions[0:n1]): 
 #		r = x2-x1
 #		r = boundaryConditions.DifferenceBoundaryConditions([r])[0]
-#		sOverR2 = self.sigma*self.sigma/scipy.dot(r,r)
+#		sOverR2 = self.sigma*self.sigma/np.dot(r,r)
 #		sOverR4= sOverR2*sOverR2
 #		sOverR8 = sOverR4*sOverR4
 #		sOverR14 = sOverR2*sOverR4*sOverR8
@@ -1089,7 +1088,7 @@ class GravityPotential(Potential):
 #	    for n2, x2 in enumerate(atoms.positions[0:n1]): 
 #		r = x2-x1
 #		r = boundaryConditions.DifferenceBoundaryConditions([r])[0]
-#		sOverR2 = self.sigma*self.sigma/scipy.dot(r,r)
+#		sOverR2 = self.sigma*self.sigma/np.dot(r,r)
 #		sOverR4= sOverR2*sOverR2
 #		sOverR6 = sOverR4*sOverR2
 #		sOverR12 = sOverR6*sOverR6
@@ -1287,7 +1286,7 @@ def RunVelocityVerlet(atoms, observers, potential, neighborLocator,
 	if lastForces == None:
 		forces = potential.Forces(atoms, neighborLocator)
 	else:
-		assert scipy.shape(lastForces) == scipy.shape(atoms.positions)
+		assert np.shape(lastForces) == np.shape(atoms.positions)
 		forces = lastForces
     #
     # Verlet
