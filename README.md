@@ -49,6 +49,7 @@ Phases are defined by their symmetries. Phase transitions occur when there’s a
 The correlation function measures the alignment of states in a system, revealing crucial information about its internal structure and response. Fluctuations are tied to these correlations and play a key role in phase transitions.
 
 7. *Abrupt Phase Transition*
+
 An abrupt phase transition is marked by a sudden change in the system’s properties, where free energy is equal at the phase boundary but differs on either side.
 
 8. *Criticality*
