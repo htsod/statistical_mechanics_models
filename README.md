@@ -1,40 +1,91 @@
-## Preview
+# Computational Solutions from Entropy, Order Parameters, and Complexity by James Sethna
 
-This is my attempted solution to the computational problems from Entropy, Order Parameters, and Complexity by James Sethna. The book explores some intriguing applications of statistical mechanics, both within and beyond the realm of physics. In this markdown, I first provide a brief summary of the key concepts of statistical mechanics, followed by an introduction to each computational problem I have worked through.
+This repository contains my solutions to various computational problems from the book Entropy, Order Parameters, and Complexity by James Sethna. The problems explore fascinating applications of statistical mechanics both within and beyond physics. In addition to the solutions, I have attempted to apply some of these concepts to real-world situations.
+
+In this README, you will find:
+- A concise overview of key statistical mechanics concepts.
+
+- An introduction to each computational problem tackled.
 
 
 
 ## Key Concepts in Statistical Mechanics
 
-*Ensemble*
-How do we connect microscopic laws with macroscopic phenomena? The concept of an ensemble provides a method for this connection. It treats a large system (macroscopic) as a collection of similarly prepared systems (microscopic), allowing us to study the system statistically.
+1. *Ensemble*
 
-*Entropy*
-Entropy, when defined as a function of the probability distribution \\(p_{i}\\), must satisfy the following conditions:
+In statistical mechanics, ensembles bridge microscopic laws and macroscopic phenomena. An ensemble treats a macroscopic system as a collection of similarly prepared microscopic systems, allowing us to study the system’s statistical properties.
+
+2. *Entropy*
+
+Entropy quantifies the uncertainty in a system, and as a function of probability distribution \\(p_{i}\\), it satisfies:
 
 Maximum at \\(p_{i} = \frac{1}{N}\\)
 Minimum at \\(p_{i} = 0\\) with \\(S = 0\\)
 Minimum at \\(p_{i} = 1\\) with \\(S = 0\\)
 The unique function that meets these conditions is \\(S = -\sum p_{i} \log{p_{i}}\\), which leads to the information interpretation of entropy. From the first condition, we see that entropy is maximized when the distribution is more even, or more "mixed," aligning with the disorder interpretation of entropy. When entropy is zero, the probability distribution is either \\(0\\) or \\(1\\), meaning that we can reproduce the system with certainty. As entropy increases, reproducing the system becomes less likely, giving rise to the concept of irreversibility.
 
-*Quantum Statistical Mechanics*
-Quantum mechanics governs the microscopic evolution of systems and determines particle types. In everyday life, where temperatures are sufficiently high, quantum mechanical effects can be ignored because quantum states are thermalized, leading to equal occupation of states. At high temperatures, particles behave like ideal gases with no internal structure.
+3. *Quantum Statistical Mechanics*
 
-However, as the temperature drops, states may settle into asymmetric configurations, leading to unusual behavior.
+Quantum mechanics governs the microscopic evolution of systems, influencing particle behavior. At high temperatures, quantum effects are negligible, and particles behave like ideal gases. As temperatures drop, quantum states become more distinct, leading to non-classical phenomena.
 
-*Monte Carlo*
-Monte Carlo methods allow computers to find ensemble averages in systems that are too complex for analytical solutions. These methods are essential in statistical mechanics for handling large, complicated systems.
+4. *Monte Carlo*
 
-*Phases*
-Different phases of matter are characterized by different symmetries. Phases with different symmetries cannot be connected via perturbation theory. So far, two primary types of phase transitions are recognized: abrupt phase transitions and continuous phase transitions.
+Monte Carlo methods are computational tools that calculate ensemble averages in complex systems, essential for statistical mechanics. These stochastic techniques help simulate systems where analytical solutions are not feasible.
 
-*Fluctuations and Correlations*
-The response of a system is closely related to its correlation function, which measures the alignment of states within the system. This function condenses key information about the system’s internal structure and behavior.
+5. *Phases*
 
-*Abrupt Phase Transition*
-As the name suggests, abrupt phase transitions occur when there is a discontinuity in the first derivative of the free energy. The phase boundary must have equal free energy, but above and below this boundary, the free energy functions differ.
+Phases are defined by their symmetries. Phase transitions occur when there’s a change in symmetry. There are two main types:
 
-*Criticality*
-The second type of phase change is a continuous phase transition. This occurs when the symmetry of the matter changes. At the critical temperature where the transition takes place, fluctuations in the system become singular at zero frequency modes, and the system exhibits self-similarity. This phenomenon is universal across different physical systems.
+-  Abrupt phase transitions: Discontinuous changes in the first derivative of free energy.
+
+- Continuous (or critical) phase transitions: Smooth changes, often characterized by self-similarity and scale invariance at critical temperatures.
+
+6. *Fluctuations and Correlations*
+
+The correlation function measures the alignment of states in a system, revealing crucial information about its internal structure and response. Fluctuations are tied to these correlations and play a key role in phase transitions.
+
+7. *Abrupt Phase Transition*
+An abrupt phase transition is marked by a sudden change in the system’s properties, where free energy is equal at the phase boundary but differs on either side.
+
+8. *Criticality*
+
+In continuous phase transitions, a system’s symmetry changes smoothly. At the critical temperature, fluctuations dominate, and the system exhibits self-similarity and scale invariance, a universal phenomenon seen across various physical systems.
 
 ## Included Problems
+
+1. Random Matrix Theory
+Explores the statistical properties of large matrices and their applications in physics, finance, and beyond.
+
+2. Six Degrees of Separation
+A model investigating the idea that all people are connected by six or fewer degrees of social connection.
+
+3. Percolation Network
+A study of percolation theory, focusing on how networks behave when connections between nodes randomly form or break.
+
+4. Polymers Random Walk
+Simulates the random walk of polymer chains to understand their behavior and configurations.
+
+5. Digital Material
+Explores digital simulations of materials and their mechanical and structural properties.
+
+6. Fractal Dimensions
+An investigation into the self-similar structures of fractals and their non-integer dimensionality.
+
+7. KAM Theorem
+A computational exploration of the KAM theorem, which deals with the stability of motion in dynamical systems.
+
+8. Solving Differential Equations
+Includes solutions to differential equations using both analytical and numerical methods.
+
+## Getting Started
+To run the code, clone the repository and follow the instructions in each problem’s directory. Dependencies are listed in the requirements.txt file.
+
+    git clone https://github.com/your-repo/statistical-mechanics.git
+    cd statistical-mechanics
+    pip install -r requirements.txt
+
+## Contributing
+Feel free to submit issues, fork the repository, and create pull requests if you'd like to contribute improvements or additional solutions.
+
+## License
+This project is licensed under the MIT License – see the LICENSE file for details.

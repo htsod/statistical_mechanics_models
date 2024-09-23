@@ -8,13 +8,14 @@ six degree separation is a rough estimation of the network connectivity of a ran
 
 ### Path length distribution
 
-![less_connected_graph](/six_degree_separation/images/less_connected.png)
-
-![sep_distr_less](/six_degree_separation/images/sep_distr_less.png)
+For a critical values of random edges added, the graph becomes much more connected, essentially goes through phase transition to a more connected states.
 
 
 ![more_connected](/six_degree_separation/images/more_connected.png)
 
 
 ![sep_disr_more](/six_degree_separation/images/sep_distr_more.png)
+
+
+
 

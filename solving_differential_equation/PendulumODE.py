@@ -4,6 +4,9 @@ import numpy
 import scipy, scipy.integrate, scipy.optimize, scipy.interpolate
 import pylab
 import matplotlib.pyplot as plt
+import matplotlib
+
+
 
 # <codecell>
 def EulerIntegratePendulum(InitialTheta=1,InitialOmega=0,InitialTime=0,FinalTime=16*numpy.pi,dt=0.1):
