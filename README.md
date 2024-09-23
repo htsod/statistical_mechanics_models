@@ -58,27 +58,43 @@ In continuous phase transitions, a system’s symmetry changes smoothly. At the 
 ## Included Problems
 
 1. Random Matrix Theory
+
+
 Explores the statistical properties of large matrices and their applications in physics, finance, and beyond.
 
 2. Six Degrees of Separation
+
+
 A model investigating the idea that all people are connected by six or fewer degrees of social connection.
 
 3. Percolation Network
+
+
 A study of percolation theory, focusing on how networks behave when connections between nodes randomly form or break.
 
 4. Polymers Random Walk
+
+
 Simulates the random walk of polymer chains to understand their behavior and configurations.
 
 5. Digital Material
+
+
 Explores digital simulations of materials and their mechanical and structural properties.
 
 6. Fractal Dimensions
+
+
 An investigation into the self-similar structures of fractals and their non-integer dimensionality.
 
 7. KAM Theorem
+
+
 A computational exploration of the KAM theorem, which deals with the stability of motion in dynamical systems.
 
 8. Solving Differential Equations
+
+
 Includes solutions to differential equations using both analytical and numerical methods.
 
 ## Getting Started
