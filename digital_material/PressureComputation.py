@@ -17,7 +17,11 @@
 ################################
 
 import DigitalMaterial as DM
-import imp
+import importlib as imp
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use("qtAgg")
 imp.reload(DM)
 
 ################################
@@ -30,9 +34,9 @@ DM.dim = 3
 # Transfer other libraries from DM
 ################################
 
-scipy = DM.scipy
+np = DM.np
 vi = DM.vi 			# Visual Python
-pylab = DM.pylab
+
 
 ################################
 # Set up pieces of simulation
@@ -65,11 +69,11 @@ class PressureMeasurement(DM.MDSystem):
         """
         impulses = []
         for d in range(DM.dim):
-            negImpulses = -scipy.array(self.boundaryConditions.impulses[d][0])
+            negImpulses = -np.array(self.boundaryConditions.impulses[d][0])
             impulses.extend(negImpulses)
             impulses.extend(self.boundaryConditions.impulses[d][1])
-        pylab.hist(impulses, bins=50)
-        pylab.show()
+        plt.hist(impulses, bins=50)
+        plt.show()
 
 def yesno():
     response = input('    Continue? (y/n) ')

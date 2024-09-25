@@ -17,7 +17,11 @@
 ################################
 
 import DigitalMaterial as DM
-import imp
+import importlib as imp
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use("qtAgg")
 imp.reload(DM)
 
 ################################
@@ -31,7 +35,6 @@ DM.dim = 3
 ################################
 
 vi = DM.vi 			# Visual Python
-pylab = DM.pylab
 np = DM.np
 
 ################################
@@ -67,19 +70,19 @@ class PerfumeWalk(DM.MDSystem):
     def PlotRandomWalks(self):
         for at in range(len(self.atoms.positions)):
             x, y = self.unfoldedTrajectoryObserver.XY(at)
-            pylab.plot(x-x[0],y-y[0])
-        pylab.show()
+            plt.plot(x-x[0],y-y[0])
+        plt.show()
 
         for at in range(len(self.atoms.positions)):
             x, y = self.unfoldedTrajectoryObserver.XY(at)
-            pylab.plot(np.arange(len(x)), x-x[0])
-        pylab.show()
+            plt.plot(np.arange(len(x)), x-x[0])
+        plt.show()
             
 
     def PlotR2Bar(self):
         r2 = self.unfoldedTrajectoryObserver.r2Bar()
-        pylab.plot(r2)
-        pylab.show()
+        plt.plot(r2)
+        plt.show()
 
 
 def RunCrystal(T=0.5):

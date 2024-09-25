@@ -18,6 +18,10 @@
 
 import DigitalMaterial as DM
 import importlib as imp
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use("qtAgg")
 imp.reload(DM)
 
 ################################
@@ -31,7 +35,7 @@ DM.dim = 3
 ################################
 np = DM.np
 vi = DM.vi 			# Visual Python
-pylab = DM.pylab
+
 
 ################################
 # Set up pieces of simulation
@@ -50,7 +54,7 @@ class EquilibrationTest(DM.MDSystem):
 		if atoms is None:
 			atoms = DM.RandomNonoverlappingListOfAtoms(L, neighborLocator, minDist=1.0, nAtoms=nAtoms, temperature=T)
 		# Remove center-of-mass momentum from gas
-		atoms.velocities -= DM.scipy.sum(atoms.velocities)/len(atoms.velocities)
+		atoms.velocities -= DM.np.sum(atoms.velocities)/len(atoms.velocities)
 		self.displayObserver = DM.VisualDisplayAtomsObserver(atoms,L)
 		self.velocityTrajectoryObserver = DM.VelocityTrajectoryObserver()
 		observers = [self.displayObserver, self.velocityTrajectoryObserver]
@@ -67,13 +71,13 @@ class EquilibrationTest(DM.MDSystem):
 			nSteps = factorBetweenHists**h
 			print(nSteps)
 			self.Run(nSteps=nSteps)
-			pylab.figure(h+1)
+			plt.figure(h+1)
 			velocity_component = [x
 						 for xxs in self.velocityTrajectoryObserver.vTrajectory
 						 for xs in xxs
 						 for x in xs]
-			pylab.hist(velocity_component, density=True, bins=50)
-			pylab.show()
+			plt.hist(velocity_component, density=True, bins=50)
+			plt.show()
 			self.velocityTrajectoryObserver.Reset()
 
 

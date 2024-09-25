@@ -17,16 +17,12 @@ In statistical mechanics, ensembles bridge microscopic laws and macroscopic phen
 
 2. *Entropy*
 
-Entropy quantifies the uncertainty in a system, and as a function of probability distribution $p_{i}$, it satisfies:
+Entropy quantifies the uncertainty in a system, and as a function of probability distribution \\(p_{i}\\), it satisfies:
 
-- Maximum at $p_{i} = \frac{1}{N}$
-
-- Minimum at $p_{i} = 0$ with $S = 0$
-
-- Minimum at $p_{i} = 1$ with $S = 0$
-
-  
-The unique function that meets these conditions is $S = -\sum p_{i} \log{p_{i}}$, which leads to the information interpretation of entropy. From the first condition, we see that entropy is maximized when the distribution is more even, or more "mixed," aligning with the disorder interpretation of entropy. When entropy is zero, the probability distribution is either $0$ or $1$, meaning that we can reproduce the system with certainty. As entropy increases, reproducing the system becomes less likely, giving rise to the concept of irreversibility.
+Maximum at \\(p_{i} = \frac{1}{N}\\)
+Minimum at \\(p_{i} = 0\\) with \\(S = 0\\)
+Minimum at \\(p_{i} = 1\\) with \\(S = 0\\)
+The unique function that meets these conditions is \\(S = -\sum p_{i} \log{p_{i}}\\), which leads to the information interpretation of entropy. From the first condition, we see that entropy is maximized when the distribution is more even, or more "mixed," aligning with the disorder interpretation of entropy. When entropy is zero, the probability distribution is either \\(0\\) or \\(1\\), meaning that we can reproduce the system with certainty. As entropy increases, reproducing the system becomes less likely, giving rise to the concept of irreversibility.
 
 3. *Quantum Statistical Mechanics*
 
@@ -49,7 +45,6 @@ Phases are defined by their symmetries. Phase transitions occur when there’s a
 The correlation function measures the alignment of states in a system, revealing crucial information about its internal structure and response. Fluctuations are tied to these correlations and play a key role in phase transitions.
 
 7. *Abrupt Phase Transition*
-
 An abrupt phase transition is marked by a sudden change in the system’s properties, where free energy is equal at the phase boundary but differs on either side.
 
 8. *Criticality*
@@ -59,43 +54,27 @@ In continuous phase transitions, a system’s symmetry changes smoothly. At the 
 ## Included Problems
 
 1. Random Matrix Theory
-
-
 Explores the statistical properties of large matrices and their applications in physics, finance, and beyond.
 
 2. Six Degrees of Separation
-
-
 A model investigating the idea that all people are connected by six or fewer degrees of social connection.
 
 3. Percolation Network
-
-
 A study of percolation theory, focusing on how networks behave when connections between nodes randomly form or break.
 
 4. Polymers Random Walk
-
-
 Simulates the random walk of polymer chains to understand their behavior and configurations.
 
 5. Digital Material
-
-
 Explores digital simulations of materials and their mechanical and structural properties.
 
 6. Fractal Dimensions
-
-
 An investigation into the self-similar structures of fractals and their non-integer dimensionality.
 
 7. KAM Theorem
-
-
 A computational exploration of the KAM theorem, which deals with the stability of motion in dynamical systems.
 
 8. Solving Differential Equations
-
-
 Includes solutions to differential equations using both analytical and numerical methods.
 
 ## Getting Started
