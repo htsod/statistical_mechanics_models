@@ -22,6 +22,7 @@ Entropy quantifies the uncertainty in a system, and as a function of probability
 - Maximum at $p_{i} = \frac{1}{N}$
 - Minimum at $p_{i} = 0$ with $S = 0$
 - Minimum at $p_{i} = 1$ with $S = 0$
+
 The unique function that meets these conditions is $S = -\sum p_{i} \log{p_{i}}$, which leads to the information interpretation of entropy. From the first condition, we see that entropy is maximized when the distribution is more even, or more "mixed," aligning with the disorder interpretation of entropy. When entropy is zero, the probability distribution is either $0$ or $1$, meaning that we can reproduce the system with certainty. As entropy increases, reproducing the system becomes less likely, giving rise to the concept of irreversibility.
 
 3. *Quantum Statistical Mechanics*
