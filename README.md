@@ -1,6 +1,8 @@
 # Computational Solutions from Entropy, Order Parameters, and Complexity by James Sethna
 
-This repository contains my solutions to various computational problems from the book Entropy, Order Parameters, and Complexity by James Sethna. The problems explore fascinating applications of statistical mechanics both within and beyond physics. In addition to the solutions, I have attempted to apply some of these concepts to real-world situations.
+This project features computational models based on problem sets from the book Entropy, Order Parameters, and Complexity by James P. Sethna. These models explore fundamental concepts in statistical physics and complexity science.
+
+We are actively seeking real-world applications for these powerful theories in physics and mathematics. The goal is to bridge the gap between theoretical frameworks and practical, real-life phenomena.
 
 In this README, you will find:
 - A concise overview of key statistical mechanics concepts.
