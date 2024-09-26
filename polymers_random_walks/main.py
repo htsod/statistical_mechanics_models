@@ -52,30 +52,3 @@ class grid:
         return np.sqrt((int(self.size/2) - self.pos[0])**2 + (int(self.size/2) - self.pos[1])**2)
 
     
-grid_points = grid(1000)
-
-steps, repeatition = 10, 1000
-rms_distance = []
-for s in range(1, steps):
-    r_square = []
-    for rep in range(repeatition):
-        last_position = grid_points.UpdateSteps(s)
-        if last_position is not None:
-            d = grid_points.MeasureDistance()
-            r_square.append(d**2)
-    rms_distance.append(np.sqrt(np.array(r_square).mean()))
-
-
-fig, ax = plt.subplots()
-
-ax.scatter(np.arange(1, steps), rms_distance, label="random walks")
-ax.plot(np.arange(1, steps), np.arange(1, steps) - 1, label="R = L")
-ax.plot(np.arange(1, steps), np.arange(1, steps)**(3/4) - 1, label=r"R = $L^{3/4}$")
-
-ax.legend()
-ax.set_title("RMS distance versus Number of steps")
-ax.set_xlabel("Number of steps")
-ax.set_ylabel("RMS distance")
-
-# plt.savefig("./polymers_random_walks/graph.png")
-plt.show()
