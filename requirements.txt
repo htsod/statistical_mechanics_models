@@ -123,3 +123,4 @@ webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.13
 yarl==1.9.8
+networkx==3.3

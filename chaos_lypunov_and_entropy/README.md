@@ -12,7 +12,7 @@ The chaotic phenomena arises from this simple rules of logistic map is fasinatin
 
 > It is this chaotic stretching, follding, and kneading of pahse space that is at the root of our explanation that entropy increases.
 
-![separation](/chaos_lypunov_and_entropy/separation.png)
+![separation](/chaos_lypunov_and_entropy/figures/separation.png)
 
 
 ### Possible extension to the problem

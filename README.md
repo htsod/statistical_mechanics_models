@@ -1,8 +1,6 @@
 # Computational Solutions from Entropy, Order Parameters, and Complexity by James Sethna
 
-This project features computational models based on problem sets from the book Entropy, Order Parameters, and Complexity by James P. Sethna. These models explore fundamental concepts in statistical physics and complexity science.
-
-We are actively seeking real-world applications for these powerful theories in physics and mathematics. The goal is to bridge the gap between theoretical frameworks and practical, real-life phenomena.
+This repository contains my solutions to various computational problems from the book Entropy, Order Parameters, and Complexity by James Sethna. The problems explore fascinating applications of statistical mechanics both within and beyond physics. In addition to the solutions, I have attempted to apply some of these concepts to real-world situations.
 
 In this README, you will find:
 - A concise overview of key statistical mechanics concepts.
@@ -19,13 +17,12 @@ In statistical mechanics, ensembles bridge microscopic laws and macroscopic phen
 
 2. *Entropy*
 
-Entropy quantifies the uncertainty in a system, and as a function of probability distribution $p_{i}$, it satisfies:
+Entropy quantifies the uncertainty in a system, and as a function of probability distribution \\(p_{i}\\), it satisfies:
 
-- Maximum at $p_{i} = \frac{1}{N}$
-- Minimum at $p_{i} = 0$ with $S = 0$
-- Minimum at $p_{i} = 1$ with $S = 0$
-
-The unique function that meets these conditions is $S = -\sum p_{i} \log{p_{i}}$, which leads to the information interpretation of entropy. From the first condition, we see that entropy is maximized when the distribution is more even, or more "mixed," aligning with the disorder interpretation of entropy. When entropy is zero, the probability distribution is either $0$ or $1$, meaning that we can reproduce the system with certainty. As entropy increases, reproducing the system becomes less likely, giving rise to the concept of irreversibility.
+Maximum at \\(p_{i} = \frac{1}{N}\\)
+Minimum at \\(p_{i} = 0\\) with \\(S = 0\\)
+Minimum at \\(p_{i} = 1\\) with \\(S = 0\\)
+The unique function that meets these conditions is \\(S = -\sum p_{i} \log{p_{i}}\\), which leads to the information interpretation of entropy. From the first condition, we see that entropy is maximized when the distribution is more even, or more "mixed," aligning with the disorder interpretation of entropy. When entropy is zero, the probability distribution is either \\(0\\) or \\(1\\), meaning that we can reproduce the system with certainty. As entropy increases, reproducing the system becomes less likely, giving rise to the concept of irreversibility.
 
 3. *Quantum Statistical Mechanics*
 

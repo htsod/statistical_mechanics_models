@@ -15,7 +15,7 @@ To study this random matrix ensemble, we design a numerical procedure to enumera
 
 We plot \\(\delta \lambda = \lambda_{n+1} - \lambda_{n} \\) to see the eigenvalues splittings.
 
-![mean_eigenvalues_distribution](./random_matrix/mean_distribution.png)
+![mean_eigenvalues_distribution](/random_matrix/figures/mean_distribution.png)
 
 - level repulsion
 From numerical experiment we found out that the eigenvalues difference reduce to zero for zero eigenvalues splitting.
