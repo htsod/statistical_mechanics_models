@@ -4,22 +4,12 @@ Here, we will be studying the evolution of non-hamiltonian system, which is agai
 
 ### Solving the problem
 
-- Attracting fixed point
-
-For $\mu < \frac{1}{4}$, the trajector has a fixed point at $x^{\ast}=0$
-
-![fixed_point_zero](/invariant_measures/figures/attracting_fixed_point(1).png)
-
-If $1/4 <\mu < 3/4$, there is a non-zero fixed point.
-
-![non-zero_fixed_point](/invariant_measures/figures/attracting_fixed_point(2).png)
+To investigate the behavior of this logistic mapping with different value of $\mu$, we adopt graphical method that trace out each mapping steps as a red dot lines. For each step, the trajectories will bounce back and forth between the line of $y = x$ and the logistic mappig function $f(x)$. After several steps, the trajectory will either settle in a fixed point, a periodical cycle or chaotic behavior depending on the value of $\mu$.
 
 
-For $3/4 < \mu < (1+\sqrt{6})/4$, the trajectory has a stable, period-two cycle.
+![logistic_mapping_combined](/invariant_measures/figures/combine.png)
 
-![period_two_cycle](/invariant_measures/figures/period_two_cycle.png)
-
-If $\mu = 1$, the trajectory explore all the configuration with unequal probability. That would suggest that the dynamics is ergodic but does not follow from Liouville's theorem.
+To summarize the result, for $\mu < \frac{1}{4}$, the trajector has a fixed point at $x^{\ast}=0$. Meaning that it will converge to the zero and never move again. If $1/4 <\mu < 3/4$, there is a non-zero fixed point, as shown on the top-right corner of the graph above, the trajectory settled down on a non-zero fixed point. For $3/4 < \mu < (1+\sqrt{6})/4$, the trajectory has a stable, period-two cycle, meaning the trajectory will trace back and forth between a set of points. If $\mu = 1$, the trajectory explore all the configuration with unequal probability. That would suggest that the dynamics is ergodic but does not follow from Liouville's theorem.
 
 ![ergodic_dynamics](/invariant_measures/figures/ergodic_dynamics.png)
 
@@ -40,5 +30,4 @@ Next, we will be studying how the invariant density varies as $\mu$ slightly inc
 ### Possible extension
 
 The concept of the invariant measure is very useful when we studying a system with known configuration but with a unpredictable trajectories like that of the logistic mapping. It gives a qualitative description to a complicated system. We can thus design a numerical program that take in a function that descripts a particular system and output the corresponding invariant measure.
-
 
