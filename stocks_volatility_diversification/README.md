@@ -9,14 +9,14 @@ For short lag times, index variations generally follow a Gaussian distribution c
 However, during significant events, the S&P 500 responds in non-random ways, as seen around the year 2000 during the World Trade Center attacks.
 
 
-[sp500](/stocks_volatility_diversification/figures/SP500.png)
+![sp500](/stocks_volatility_diversification/figures/SP500.png)
 
 
 ### Lag time
 
 For shorter lag times, stock fluctuations are primarily driven by random investor behavior, leading to a sharp Gaussian distribution.
 
-[](/stocks_volatility_diversification/figures/lag_time_comparison.png)
+![lag_time](/stocks_volatility_diversification/figures/lag_time_comparison.png)
 
 As lag time increases, such as shifting from daily to weekly observations, the fluctuations still follow a Gaussian distribution, but with a larger standard deviation. Even though the deviation increases, the distribution remains Gaussian. Over longer lag times, such as a year, behavior becomes more chaotic. This transition may be interpreted as a combination of random fluctuations and time-dependent external factors.
 
@@ -30,7 +30,7 @@ $$ v_{l} = \sqrt{\langle(P_{l}(t)- \bar{P_{l}(t)}^{2})\rangle} $$
 
 The plot below illustrates this relationship:
 
-[volatility_squared](/stocks_volatility_diversification/figures/volatility_squared.png)
+![volatility_squared](/stocks_volatility_diversification/figures/volatility_squared.png)
 
 
 ### Invest strategy
