@@ -17,7 +17,7 @@ This transition from a symmetric to a broken-symmetric state as $p$ varies is an
 
 In edge percolation, connections (edges) are removed with probability $p$. Below is an example of edge percolation on a periodic $20\times 20$ lattice with $p=0.4$. 
 
-![grid_percolation](percolation_network/figures/grid_percolation.png)
+![grid_percolation](/percolation_network/figures/grid_percolation.png)
 
 Nodes of different colors represent different clusters. At $p=0.5$, the system appears ambiguous—neither fully connected nor entirely fragmented. However, a slight change in $p$ reveals stark differences in the network's state:
 
