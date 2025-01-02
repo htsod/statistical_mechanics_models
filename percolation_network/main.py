@@ -1,126 +1,216 @@
+import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
+fig, ax = plt.subplots(2, 2, figsize=(10, 10))
 
 
-class PercolationNetwork:
-    def __init__(self, L):
-        """
-        Define a network object with lattice of length L x L
-        """
-        self.L = L
-        self.lattice = [[[] for i in range(self.L)] for j in range(self.L)]
-        self.AddedNodes = []
-        self.Clusters = []
+def grid_percolation(m, n, p, periodic=True, create_using=None):
+    """Returns the two-dimensional percolated grid graph
+    
+    The percolated grid graph disconnected edges by probability p
+
+    Parameters
+    ----------
+    m, n : int or iterable container of nodes
+        If an integer, nodes are from `range(n)`.
+        If a container, elements become the coordinate of the nodes.
+    
+    p : int
+        Each connected edges from the lattice has probability p to be removed.
+
+    periodic : bool or iterable
+        If `periodic` is True, both dimensions are periodic. If False, none
+        are periodic.  If `periodic` is iterable, it should yield 2 bool
+        values indicating whether the 1st and 2nd axes, respectively, are
+        periodic.
+
+    create_using : NetworkX graph constructor, optional (default=nx.Graph)
+        Graph type to create. If graph instance, then cleared before populated.
+    """
+    G = nx.grid_2d_graph(m, n, periodic, create_using)
+    for e in G.edges:
+        if np.random.random() < p:
+            n1, n2 = e[0], e[1]
+            G.remove_edge(n1, n2)
+    return G
 
 
-    def GetNeighbors(self, node):
-        """
-        Return the neighboring nodes of a given node
-        """
+def plot_grid_clusters(m, n, p):
+    G = grid_percolation(m, n, p)
+    clusters = list(nx.connected_components(G))
+    indices = np.argsort([len(x) for x in clusters])
+    sorted_indices = indices[::-1]
+    sorted_clusters = np.array(clusters)[sorted_indices]
+    color_list = []
 
-        if node[0] == 0:
-            left_bound = self.L - 1
-            right_bound = 1
-        elif node[0] == (self.L - 1):
-            right_bound = -(self.L - 1)
-            left_bound = -1
-        else:
-            left_bound = -1
-            right_bound = 1
-        
-        if node[1] == 0:
-            lower_bound = self.L - 1
-            upper_bound = 1
-        elif node[1] == (self.L - 1):
-            upper_bound = -(self.L - 1)
-            lower_bound = -1
-        else:
-            upper_bound = 1
-            lower_bound = -1
+    for i in range(len(sorted_clusters)):
+        r, g, b = (i/len(clusters))**3, np.abs(np.sin(np.pi*i/2/len(clusters))), np.random.random()
+        color_list.append((r, g, b))
 
-        n1 = [node[0], node[1] + upper_bound]
-        n2 = [node[0] + right_bound, node[1]]
-        n3 = [node[0], node[1] + lower_bound]
-        n4 = [node[0] + left_bound, node[1]]
+    for i, cluster in enumerate(sorted_clusters):
+        color = color_list[i]
+        visted_nodes = []
+        for c in cluster:
+            visted_nodes.append(c)
+            ax[0][0].plot(c[0], c[1], "o", color=color, markersize=4)
+            for e in G.neighbors(c):
+                if e not in visted_nodes:
+                    x = []
+                    y = []
+                    n1, n2 = c, e
+                    # if top row connect with the bottom row
+                    if (n1[1] == 0 and n2[1] == n-1) or (n2[1] == 0 and n1[1] == n-1):
+                        x.append(n1[0])
+                        y.append(n1[1])
+                        x.append(n1[0])
+                        y.append(n1[1] + 1/2)
 
-        return [n1, n2, n3, n4]
+                        x.append(n2[0])
+                        y.append(n2[1])   
+                        x.append(n2[0])
+                        y.append(n2[1] - 1/2)
+                    # if the left column connect with the right column
+                    elif (n1[0] == 0 and n2[0] == m-1) or (n2[0] == 0 and n1[0] == m-1):
+                        x.append(n1[0])
+                        y.append(n1[1])
+                        x.append(n1[0] + 1/2)
+                        y.append(n1[1])
 
-
-    def AddEdge(self, node, p):
-        neighbors = self.GetNeighbors(node)
-
-        for i in neighbors:
-            num = i[0] * self.L + i[1]
-            if num in self.AddedNodes:
-                neighbors.remove(i)
-        for n in neighbors:
-            if np.random.random() < p:
-                self.lattice[node[0]][node[1]].append(n)
-                self.lattice[n[0]][n[1]].append(node)
-        self.AddedNodes.append(node[0]*self.L + node[1])
-
-
-    def Display(self):
-        fig, ax = plt.subplots(figsize=(10, 10))
-        ax.set_title("2D regular Percolation Network")
-        for i in range(self.L):
-            for j in range(self.L):
-                ax.plot(i, j, marker='o', color='b')
-                for n in self.lattice[i][j]:
-                    if abs(n[0] - i) > 1 and not abs(n[1] - j) > 1:
-                        ax.plot([i, i - 1/2], [j, n[1]], 'r-')
-                        ax.plot([n[0], n[0] + 1/2], [j, n[1]], 'r-')
-                    elif abs(n[1] - j) > 1 and not abs(n[0] - i) > 1:
-                        ax.plot([i, n[0]], [j, j - 1/2], 'r-')
-                        ax.plot([i, n[0]], [n[1], n[1] + 1/2], 'r-')
-                    elif abs(n[1] - j) > 1 and abs(n[0] - i) > 1:
-                        ax.plot([i, i - 1/2], [j, j - 1/2], 'r-')
-                        ax.plot([n[0], n[0] + 1/2], [n[1], n[1] + 1/2], 'r-')
+                        x.append(n2[0])
+                        y.append(n2[1])
+                        x.append(n2[0] - 1/2)
+                        y.append(n2[1])
+                    
                     else:
-                        ax.plot([i, n[0]], [j, n[1]], 'r-')
-
-        plt.show()
-
-
-    def FindClusterFromNode(self, node, visited):
-        cluster = []
-        if (node[0] * self.L + node[1]) not in visited:
-            cluster.append(node)
-            current_neighbor = self.lattice[node[0]][node[1]]
-            while len(current_neighbor) != 0:
-                next_neighbor = []
-                for n in current_neighbor:
-                    if (n[0] * self.L + n[1]) not in visited:
-                        cluster.append(n)
-                        visited.append(n[0] * self.L + n[1])
-                        for node in self.lattice[n[0]][n[1]]:
-                            if (node[0] * self.L + node[1]) not in visited:
-                                next_neighbor.append(node)
-                current_neighbor = next_neighbor
-        return cluster, visited
+                        x.append(n1[0])
+                        y.append(n1[1])
+                        x.append(n2[0])
+                        y.append(n2[1])
+                
+                if len(x) > 3:
+                    ax[0][0].plot(x[:2], y[:2], "-", color=color)
+                    ax[0][0].plot(x[2:], y[2:], "-", color=color)
+                else:
+                    ax[0][0].plot(x, y, "-", color=color)
+        ax[0][0].axis("off")
 
 
+def triangular_percolation(m, n, p, periodic=True, create_using=None):
+    """Returns the triangular percolated graph
+    
+    The percolated graph disconnected edges by probability p
+
+    Parameters
+    ----------
+    m, n : int or iterable container of nodes
+        If an integer, nodes are from `range(n)`.
+        If a container, elements become the coordinate of the nodes.
+    
+    p : int
+        Each connected edges from the lattice has probability p
+        to be removed.
+
+    periodic : bool or iterable
+        If `periodic` is True, both dimensions are periodic. If False, none
+        are periodic.  If `periodic` is iterable, it should yield 2 bool
+        values indicating whether the 1st and 2nd axes, respectively, are
+        periodic.
+
+    create_using : NetworkX graph constructor, optional (default=nx.Graph)
+        Graph type to create. If graph instance, then cleared before populated.
+    """
+    G = nx.triangular_lattice_graph(m, n, periodic=False, create_using=None)
+    for n in list(G.nodes):
+        if np.random.random() < p:
+            G.remove_node(n)
+    return G
 
 
-    def FindAllClusters(self):
-        visited = []
-        for i in range(self.L):
-            for j in range(self.L):
-                cluster, visited = self.FindClusterFromNode([i, j], visited)
-                if len(cluster) > 0:
-                    self.Clusters.append(cluster)
-        
+def plot_triangular_cluster(G, m, n):
+    clusters = list(nx.connected_components(G))
+    indices = np.argsort([len(x) for x in clusters])
+    sorted_indices = indices[::-1]
+    sorted_clusters = np.array(clusters)[sorted_indices]
+
+    for i, c in enumerate(sorted_clusters):
+        r, g, b = (i/len(clusters))**3, np.abs(np.sin(np.pi*i/2/len(clusters))), np.random.random()
+        radius = 1/np.sqrt(3)
+        for node in c:
+            pos = nx.get_node_attributes(G, "pos")[node]
+            hexagon = patches.RegularPolygon(pos, 6, radius=radius, facecolor=(r, g, b))
+            ax[1][0].add_patch(hexagon)
+    
+    ax[1][0].set_aspect('equal')
+    ax[1][0].set_xlim(-1, n/2+1.5)
+    ax[1][0].set_ylim(-1, m-1/2)
+    ax[1][0].axis("off")
 
 
 
-L = 10
-regular = PercolationNetwork(L)
 
-for i in range(L):
-    for j in range(L):
-        regular.AddEdge([i, j], 0.4)
+m, n, p = 20, 20, 0.5
+plot_grid_clusters(m, n, p)
 
-regular.FindAllClusters()
-print(len(regular.Clusters))
+m, n, p = 20, 40, 0.5
 
-regular.Display()
+G = triangular_percolation(m, n, p)
+
+plot_triangular_cluster(G, m, n)
+
+
+
+m, n, p = 1024, 1024, 0.5
+
+G = grid_percolation(m, n, p)
+
+clusters = list(nx.connected_components(G))
+
+max_val = 0
+max_index = []
+for i, j in enumerate(clusters):
+    if len(j) > max_val:
+        max_index = [i]
+        max_val = len(j)
+    elif len(j) == max_val:
+        max_index.append(i)
+
+print(max_val, max_index)
+
+C = nx.Graph()
+C.add_nodes_from(clusters[max_index[0]])
+
+x, y = np.array(list(clusters[max_index[0]])).T[0], np.array(list(clusters[max_index[0]])).T[1]
+ax[0][1].plot(x, y, 'o', markersize=1/np.log(m*n), color="k")
+ax[0][1].axis("off")
+
+
+
+m, n, p = 1024, 2*1024, 0.5
+
+G = triangular_percolation(m, n, p)
+clusters = list(nx.connected_components(G))
+
+
+max_val = 0
+max_index = []
+for i, j in enumerate(clusters):
+    if len(j) > max_val:
+        max_index = [i]
+        max_val = len(j)
+    elif len(j) == max_val:
+        max_index.append(i)
+
+print(max_val, max_index)
+
+C = nx.Graph()
+C.add_nodes_from(clusters[max_index[0]])
+
+x, y = np.array(list(clusters[max_index[0]])).T[0], np.array(list(clusters[max_index[0]])).T[1]
+ax[1][1].plot(x, y, 'o', markersize=1/np.log(m*n), color="k")
+ax[1][1].axis("off")
+
+fig.tight_layout()
+
+plt.savefig("./figures/universality.png")
