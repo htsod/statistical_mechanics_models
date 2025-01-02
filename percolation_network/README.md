@@ -22,7 +22,7 @@ In edge percolation, connections (edges) are removed with probability $p$. Below
 Nodes of different colors represent different clusters. At $p=0.5$, the system appears ambiguous—neither fully connected nor entirely fragmented. However, a slight change in $p$ reveals stark differences in the network's state:
 
 
-![grid_percolation_transition](percolation_network/figures/grid_percolation_transition.png)
+![grid_percolation_transition](/percolation_network/figures/grid_percolation_transition.png)
 
 - __Left__: At $p=0.4$, below the transition point, a single giant cluster dominates.
 
@@ -35,7 +35,7 @@ It could be shown that at the critical probability $p_{c} = 0.5$, the network tr
 
 In contrast to edge percolation, bond percolation involves the removal of nodes. For example, on a triangular lattice, bond percolation can be represented as a hexagonal tiling:
 
-![Bond Percolation](percolation_network/figures/triangular_percolation.png)
+![Bond Percolation](/percolation_network/figures/triangular_percolation.png)
 
 As $p$ varies from $p = 0.4$ to $p=0.5$, the system again exhibits a phase transition. Both edge and bond percolation display the same qualitative behavior, exemplifying __universality__—the insensitivity of phase transition properties to microscopic details.
 
@@ -48,7 +48,7 @@ This observation leads to a powerful classification of phase transition across d
 
 The universality could also be visualized by comparing them in the large $N$ limits at the critical point $p_{c}= 0.5$. The largest cluster of each case have the same statistical properties:
 
-![universality](percolation_network/figures/universality.png)
+![universality](/percolation_network/figures/universality.png)
 
 Furthermore, these clusters demonstrate __scale invariance__ at the critical point, maintaining their statistical properties under rescaling, which is a common features of __continuous phase transition__ at the critical point.
 
