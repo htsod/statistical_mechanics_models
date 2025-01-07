@@ -76,9 +76,9 @@ Now consider for $p$ around the critical point, the theoretical prediction tells
 
 ![scaling near pc](/percolation_network/figures/log_log_plot_scaling_relation_near_pc.png)
 
-You might notice that in the above graph, the experimental results do not align well with the theoretical prediction. This is the scaling exponent only valids numerically at the thermodynamics limit. Experimentally, it is impossible to simulate at the thermodynamics limit at $\lim_{L\rightarow \infty}$, but we make use of the fact that as $L$ go larger, the scaling function will collapse to the thermodynamics limit. This is also known from the method of __Finite-size scaling__.
+You might notice that in the above graph, the experimental results do not align well with the theoretical prediction. This is the scaling exponent only valids numerically at the thermodynamics limit. Experimentally, it is impossible to simulate at the thermodynamics limit at $\lim_{L\rightarrow \infty}$, but we make use of the fact that as $L$ go larger, the scaling function will collapse to the thermodynamics limit. This is also known from the method of __Finite-size scaling__.
 
-![finite-size scaling](/percolation_network/figures/collapse_into_ingle_scaling_function_bond.png)
+![finite-size scaling](/percolation_network/figures/collapse_into_ingle_scaling_function.png)
 
 
 
